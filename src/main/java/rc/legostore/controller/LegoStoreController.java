@@ -57,4 +57,15 @@ public class LegoStoreController {
 		return ResponseEntity.ok(legoSets);
 	}
 	
+	@GetMapping("/byDeliveryFee/{price}")
+	public ResponseEntity<Collection<LegoSet>> byDeliveryFee(@PathVariable int price) {
+		Collection<LegoSet> legoSets = legoSetRepository.findAllByDeliveryPriceLessThan(price);
+		return ResponseEntity.ok(legoSets);
+	}
+	
+	@GetMapping("/byReviewRating/{rating}")
+	public ResponseEntity<Collection<LegoSet>> byReviewRating(@PathVariable int rating) {
+		Collection<LegoSet> legoSets = legoSetRepository.findByReviewRating(rating);
+		return ResponseEntity.ok(legoSets);
+	}
 }
