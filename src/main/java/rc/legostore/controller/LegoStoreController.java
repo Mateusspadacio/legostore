@@ -41,13 +41,20 @@ public class LegoStoreController {
 	
 	@GetMapping("/all")
 	public ResponseEntity<Collection<LegoSet>> all() {
-		return ResponseEntity.ok(legoSetRepository.findAll());
+		Collection<LegoSet> legoSets = legoSetRepository.findAll();
+		return ResponseEntity.ok(legoSets);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<LegoSet> byId(@PathVariable String id) {
 		LegoSet legoSet = legoSetRepository.findById(id).orElse(null);
 		return ResponseEntity.ok(legoSet);
+	}
+	
+	@GetMapping("/{theme}")
+	public ResponseEntity<Collection<LegoSet>> byTheme(@PathVariable String theme) {
+		Collection<LegoSet> legoSets = legoSetRepository.findAllByThemeContains(theme);
+		return ResponseEntity.ok(legoSets);
 	}
 	
 }
